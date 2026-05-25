@@ -11,13 +11,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Run WPScan
+      - name: Run WPScan with Cache
         run: |
-          docker run --rm --user root \
+          docker run --rm \
             -v ${{ github.workspace }}:/workspace \
-            -e HOME=/tmp \
+            -v wpscan-cache:/root/.cache/wpscan \
+            -e HOME=/root \
             wpscanteam/wpscan:latest \
-            --no-update \
             --url https://smkdtbs.sch.id \
             --usernames adminsmkdtbs,humas_smkdt \
             --passwords /workspace/wordlists/combined_wordlist.txt \
