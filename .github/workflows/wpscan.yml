@@ -15,6 +15,7 @@ jobs:
         uses: docker://wpscanteam/wpscan:latest
         with:
           args: >
+            --no-update
             --url https://smkdtbs.sch.id
             --usernames adminsmkdtbs,humas_smkdt
             --passwords /github/workspace/wordlists/combined_wordlist.txt
@@ -22,15 +23,3 @@ jobs:
             --random-user-agent
             --max-threads 5
             --format cli-no-color
-
-      - name: Save Results to File
-        run: |
-          mkdir -p results
-          echo "WPScan completed at $(date)" > results/wpscan-result.txt
-          echo "Check the workflow log above for full results." >> results/wpscan-result.txt
-
-      - name: Upload Scan Results
-        uses: actions/upload-artifact@v4
-        with:
-          name: wpscan-results
-          path: results/
