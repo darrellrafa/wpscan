@@ -13,7 +13,7 @@ jobs:
 
       - name: Run WPScan
         run: |
-          docker run --rm \
+          docker run --rm --user root \
             -v ${{ github.workspace }}:/workspace \
             -e HOME=/tmp \
             wpscanteam/wpscan:latest \
