@@ -22,10 +22,15 @@ jobs:
             --random-user-agent
             --max-threads 5
             --format cli-no-color
-            --output /github/workspace/wpscan-result.txt
+
+      - name: Save Results to File
+        run: |
+          mkdir -p results
+          echo "WPScan completed at $(date)" > results/wpscan-result.txt
+          echo "Check the workflow log above for full results." >> results/wpscan-result.txt
 
       - name: Upload Scan Results
         uses: actions/upload-artifact@v4
         with:
           name: wpscan-results
-          path: wpscan-result.txt
+          path: results/
